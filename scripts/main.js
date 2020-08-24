@@ -22,7 +22,7 @@ function setup() {
 
 function draw() {
  
-  /*
+
   //gravity
   sy += g;
 
