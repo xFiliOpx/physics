@@ -1,40 +1,46 @@
 let pl1 = new player();
 let boxes = [];
 
-
+let map1 = [
+  [100, 600, 700, 50], 
+  //[300, 500, 600, 20],
+  [500, 400, 500, 50]
+];
 
 let color = false;
 //gravity, drag
-let g = 0, d = 1;
+let g = 1, d = 1;
 let showStats = true;
 //framerate visualizer
 let l = 0, lf = 0, f = 0;
+//last map end
+let lme = 0;
 
 function setup() {
   frameRate(60);
   createCanvas(700, 700);
   rectMode(CORNER);
 
-  for (let i = 1; i <= 30; i++){
-    boxes.push(new box(20*i, 25*i, 400, 40));
+  for (let i = 0; i < map1.length; i++){
+    boxes.push(new box(map1[i][0], map1[i][1], map1[i][2], map1[i][3]));
   }
 }
 
 function draw() {
  
   pl1.forces(g, d);
-  //pl1.collisions();
   pl1.controls();
+  pl1.collisions(boxes, lme);
+
 
   if (color){background(0,0,255);}
   else {background(0);}
   
-
   for (let i = 0; i < boxes.length; i++){
     boxes[i].paint(color);
   }
-  pl1.draw(color);
 
+  pl1.draw(color);
 
   //stats
   if (showStats){
