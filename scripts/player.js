@@ -12,27 +12,41 @@ class player {
 		this.sx = 0;
 		this.sy = 0;
 
-		this.onGND = true;
+		this.onGND = false;
 	}
 
-	forces(g, d){
+	forces(g, gd, ad){
 		//gravity
 		this.sy += g;
-
-		//drag
-		if (this.sx > 0){
-			this.sx -= d;
-		} else if (this.sx < 0){
-			this.sx += d;
+		if (this.sy > 25){this.sy = 25;}
+		//ground drag
+		if (this.onGND){
+			if (1 > this.sx &&  this.sx > -1){this.sx = 0;}
+			if (this.sx > 0){
+				this.sx -= gd;
+			} else if (this.sx < 0){
+				this.sx += gd;
+			}
+			
+		}
+		//air drag
+		if (!this.onGND){
+			if (this.sx > 0){
+				this.sx -= ad;
+			} else if (this.sx < 0){
+				this.sx += ad;
+			}
 		}
 	}
 
 	collisions(boxes, lme){
-		for (let i = lme; i < boxes.length - 1; i++){
+		if (this.onGND){this.onGND = false;}
+		for (let i = lme; i < boxes.length; i++){
 			if (this.sy > 0 && this.y > 0){
-				if (boxes[i].y + boxes[i].h > this.y + this.sy + this.h && this.y + this.sy + this.h > boxes[i].y || this.y + this.sy + this.h > boxes[i].y + boxes[i].h && boxes[i].y + boxes[i].h > this.y){
+				if (this.y + this.h + this.sy > boxes[i].y && boxes[i].x < this.x + this.w){
 					this.y = boxes[i].y - this.h;
 					this.sy = 0;
+					this.onGND = true;
 				}
 			}
 		}
@@ -41,7 +55,9 @@ class player {
 	controls(){
 		//w
 		if (keyIsDown(87)){
-			this.sy = -20;
+			if (this.onGND){
+				this.sy = -20;
+			}
 		}
 
 		//d
@@ -58,10 +74,15 @@ class player {
 	draw(color){
 		this.x += this.sx;
   		this.y += this.sy;
+		
 
 		strokeWeight(0);
 		if (color){fill(255,0,0)}
         else {fill(255)}
 		rect(this.x, this.y, this.w, this.h)
+
+		stroke(255,0,0)
+		fill(255,0,0)
+		line(this.x + this.w/2, this.y + this.h/2, this.sx *5, this.sy *5)
 	}
 }
