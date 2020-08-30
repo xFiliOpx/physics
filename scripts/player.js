@@ -15,7 +15,7 @@ class player {
 		this.onGND = false;
 	}
 
-	forces(g, gd, ad){
+	forces(g, gd){
 		//gravity
 		this.sy += g;
 		if (this.sy > 25){this.sy = 25;}
@@ -29,6 +29,7 @@ class player {
 			}
 			
 		}
+		/*
 		//air drag
 		if (!this.onGND){
 			if (this.sx > 0){
@@ -37,16 +38,26 @@ class player {
 				this.sx += ad;
 			}
 		}
+		*/
 	}
 
 	collisions(boxes, lme){
 		if (this.onGND){this.onGND = false;}
+
 		for (let i = lme; i < boxes.length; i++){
-			if (this.sy > 0 && this.y > 0){
-				if (this.y + this.h + this.sy > boxes[i].y && boxes[i].x < this.x + this.w){
-					this.y = boxes[i].y - this.h;
-					this.sy = 0;
-					this.onGND = true;
+			if (boxes[i].x < this.x + this.w && boxes[i].x + boxes[i].w > this.x	){
+				if (this.sy > 0 && this.y > 0){
+					if (this.y + this.h + this.sy > boxes[i].y && this.y < boxes[i].y + boxes[i].h){
+						this.y = boxes[i].y - this.h;
+						this.sy = 0;
+						this.onGND = true;
+					}
+				}
+				if (this.sy < 0 && this.y > 0){
+					if (this.y + this.sy < boxes[i].y + boxes[i].h && boxes[i].y < this.y + this.sy){
+						this.y = boxes[i].y + boxes[i].h;
+						this.sy = 0;
+					}
 				}
 			}
 		}
@@ -62,12 +73,22 @@ class player {
 
 		//d
 		if (keyIsDown(68)){
-			this.sx = 10;
+			if (this.onGND){
+				this.sx = 10;
+			}
+			if (this.sx < 10){
+				this.sx += 1;
+			}
 		}
 
 		//a
 		if (keyIsDown(65)){
-			this.sx = -10;
+			if (this.onGND){
+				this.sx = -10;
+			}
+			if (this.sx > -10){
+				this.sx -= 1;
+			}
 		}
 	}
 

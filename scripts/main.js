@@ -2,14 +2,16 @@ let pl1 = new player();
 let boxes = [];
 
 let map1 = [
-  [100, 600, 700, 50], 
-  [300, 500, 600, 20],
-  [500, 400, 500, 50]
+  [0, 700, 700, 50],
+  [100, 600, 100, 50], 
+  [200, 500, 500, 10],
+  [300, 300, 100, 50],
+  [400, 275, 100, 50]
 ];
 
 let color = false;
 //gravity, ground drag, air drag
-let g = 1, gd = 1, ad = 0.25;
+let g = 1, gd = 1;
 let showStats = true;
 //framerate visualizer
 let l = 0, lf = 0, f = 0;
@@ -28,7 +30,7 @@ function setup() {
 
 function draw() {
  
-  pl1.forces(g, gd, ad);
+  pl1.forces(g, gd);
   pl1.controls();
   pl1.collisions(boxes, lme);
 
