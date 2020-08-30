@@ -1,18 +1,6 @@
 let pl1 = new player();
 let boxes = [];
 
-// blocks
-// [(x), (y), (w), (h)]
-let maps = [
-  [0, 890, 700, 1],
-  [50, 750, 300, 50],
-  [250, 300, 5, 500],
-  [100, 555, 300, 50], 
-  [200, 500, 200, 5],
-  [300, 300, 200, 50],
-  [400, 100, 100, 50]
-];
-
 let color = false;
 //gravity, ground drag, air drag
 let g = 1, gd = 1;
@@ -20,21 +8,14 @@ let showStats = true;
 //framerate visualizer
 let l = 0, lf = 0, f = 0;
 
-function otherMap(){
-  for (let i = 0; i < 100; i++){
-    boxes[i] = new box(0,0,0,0)
-  }
-  for (let i = 0; i < maps.length; i++){
-    boxes[i] = new box(maps[i][0], maps[i][1], maps[i][2], maps[i][3]);
-  }
-}
+let mapNum = 0;
 
 function setup() {
   frameRate(60);
   createCanvas(700, 900);
   rectMode(CORNER);
 
-  otherMap();
+  loadMap(mapNum);
 }
 
 function draw() {
