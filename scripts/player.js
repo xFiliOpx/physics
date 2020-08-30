@@ -27,24 +27,13 @@ class player {
 			} else if (this.sx < 0){
 				this.sx += gd;
 			}
-			
 		}
-		/*
-		//air drag
-		if (!this.onGND){
-			if (this.sx > 0){
-				this.sx -= ad;
-			} else if (this.sx < 0){
-				this.sx += ad;
-			}
-		}
-		*/
 	}
 
-	collisions(boxes, lme){
+	collisions(boxes){
 		if (this.onGND){this.onGND = false;}
 
-		for (let i = lme; i < boxes.length; i++){
+		for (let i = 0; i < boxes.length; i++){
 			if (boxes[i].x < this.x + this.w && boxes[i].x + boxes[i].w > this.x){
 				if (this.sy > 0/* && this.y > 0*/){
 					if (this.y + this.h + this.sy > boxes[i].y && this.y < boxes[i].y + boxes[i].h){
@@ -54,7 +43,7 @@ class player {
 					}
 				}
 				if (this.sy < 0/* && this.y > 0*/){
-					if (this.y + this.sy < boxes[i].y + boxes[i].h && boxes[i].y < this.y + this.sy){
+					if (this.y + this.sy < boxes[i].y + boxes[i].h && boxes[i].y < this.y + this.h){
 						this.y = boxes[i].y + boxes[i].h;
 						this.sy = 0;
 					}
@@ -68,7 +57,7 @@ class player {
 					}
 				}
 				if (this.sx < 0){
-					if (this.x + this.sx < boxes[i].x + boxes[i].w &&  boxes[i].x < this.x + this.sx ){
+					if (this.x + this.sx < boxes[i].x + boxes[i].w &&  boxes[i].x < this.x + this.w ){
 						this.x = boxes[i].x + boxes[i].w;
 						this.sx = 0;
 					}
@@ -110,7 +99,6 @@ class player {
 		this.x += this.sx;
   		this.y += this.sy;
 		
-
 		strokeWeight(0);
 		if (color){fill(255,0,0)}
         else {fill(255)}

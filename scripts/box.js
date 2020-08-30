@@ -6,7 +6,7 @@ class box {
         this.h = ih;
         this.col;
     }
-    paint(color){
+    draw(color){
         strokeWeight(0);
         if (color){fill(0,255,0)}
         else {fill(127)}
