@@ -18,7 +18,7 @@ class player {
 	forces(g, gd){
 		//gravity
 		this.sy += g;
-		if (this.sy > 25){this.sy = 25;}
+		if (this.sy > 30){this.sy = 30;}
 		//ground drag
 		if (this.onGND){
 			if (1 > this.sx &&  this.sx > -1){this.sx = 0;}
@@ -45,18 +45,32 @@ class player {
 		if (this.onGND){this.onGND = false;}
 
 		for (let i = lme; i < boxes.length; i++){
-			if (boxes[i].x < this.x + this.w && boxes[i].x + boxes[i].w > this.x	){
-				if (this.sy > 0 && this.y > 0){
+			if (boxes[i].x < this.x + this.w && boxes[i].x + boxes[i].w > this.x){
+				if (this.sy > 0/* && this.y > 0*/){
 					if (this.y + this.h + this.sy > boxes[i].y && this.y < boxes[i].y + boxes[i].h){
 						this.y = boxes[i].y - this.h;
 						this.sy = 0;
 						this.onGND = true;
 					}
 				}
-				if (this.sy < 0 && this.y > 0){
+				if (this.sy < 0/* && this.y > 0*/){
 					if (this.y + this.sy < boxes[i].y + boxes[i].h && boxes[i].y < this.y + this.sy){
 						this.y = boxes[i].y + boxes[i].h;
 						this.sy = 0;
+					}
+				}
+			}
+			if (boxes[i].y < this.y + this.h && boxes[i].y + boxes[i].h > this.y){
+				if (this.sx > 0){
+					if (this.x + this.w + this.sx > boxes[i].x && this.x < boxes[i].x + boxes[i].w){
+						this.x = boxes[i].x - this.w;
+						this.sx = 0;
+					}
+				}
+				if (this.sx < 0){
+					if (this.x + this.sx < boxes[i].x + boxes[i].w &&  boxes[i].x < this.x + this.sx ){
+						this.x = boxes[i].x + boxes[i].w;
+						this.sx = 0;
 					}
 				}
 			}
