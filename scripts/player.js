@@ -13,6 +13,8 @@ class player {
 		this.sy = 0;
 
 		this.onGND = false;
+
+		this.asset;
 	}
 
 	forces(g, gd){
@@ -94,18 +96,20 @@ class player {
 			}
 		}
 	}
-
+	init(){
+		this.asset = loadImage('../addons/player.png');
+	}
 	draw(color){
 		this.x += this.sx;
   		this.y += this.sy;
 		
+
 		strokeWeight(0);
 		if (color){fill(255,0,0)}
         else {fill(255)}
-		rect(this.x, this.y, this.w, this.h)
+		//rect(this.x, this.y, this.w, this.h)
+		
 
-		stroke(255,0,0)
-		fill(255,0,0)
-		line(this.x + this.w/2, this.y + this.h/2, this.sx *5, this.sy *5)
+		image(this.asset, this.x, this.y);
 	}
 }

@@ -1,6 +1,8 @@
 let pl1 = new player();
 let boxes = [];
 
+let audio = new Audio('../addons/song.mp3')
+
 let color = false;
 //gravity, ground drag, air drag
 let g = 1, gd = 1;
@@ -15,11 +17,14 @@ function setup() {
   createCanvas(700, 900);
   rectMode(CORNER);
 
+  pl1.init()
+
   loadMap(mapNum);
 }
 
 function draw() {
- 
+  audio.play();
+
   pl1.forces(g, gd);
   pl1.controls();
   pl1.collisions(boxes);
