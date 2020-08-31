@@ -1,7 +1,7 @@
 let pl1 = new player();
 let boxes = [];
 
-let audio = new Audio('../addons/song.mp3')
+let audio = [new Audio('../addons/song.mp3'), new Audio('../addons/song2.mp3')]
 
 let color = false;
 //gravity, ground drag, air drag
@@ -11,6 +11,7 @@ let showStats = true;
 let l = 0, lf = 0, f = 0;
 
 let mapNum = 0;
+let audioNum = 1, laudio = 1;
 
 function setup() {
   frameRate(60);
@@ -23,7 +24,23 @@ function setup() {
 }
 
 function draw() {
-  audio.play();
+
+  switch (audioNum){
+    case 1:
+      audio[laudio].pause();
+      audio[0].load();
+      audio[0].play();
+      laudio = 0;
+      audioNum = 0;
+      break;
+    case 2:
+      audio[laudio].pause();
+      audio[1].load();
+      audio[1].play();
+      laudio = 1;
+      audioNum = 0;
+      break;
+  }
 
   pl1.forces(g, gd);
   pl1.controls();
